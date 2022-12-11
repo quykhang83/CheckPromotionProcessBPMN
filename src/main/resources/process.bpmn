@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0">
+  <bpmn:process id="promotion-check-process" name="Promotion Check Process" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="send-welcome-mess" />
+    <bpmn:endEvent id="EndEvent_0x6ir2l">
+      <bpmn:incoming>Flow_1vm2m7i</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1lgqkyx" sourceRef="send-order" targetRef="check-promotion" />
+    <bpmn:sequenceFlow id="Flow_0op2hyo" sourceRef="print-promotion" targetRef="view-promotion" />
+    <bpmn:serviceTask id="send-welcome-mess" name="Send Welcome Message" camunda:class="com.example.workflow.SendWelcomeMessage">
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>Flow_1df60cw</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sendTask id="send-order" name="Send Order" camunda:class="com.example.workflow.SendOrder">
+      <bpmn:incoming>Flow_1l8p14r</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lgqkyx</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:serviceTask id="print-promotion" name="Print Promotion" camunda:class="com.example.workflow.PrintPromotion">
+      <bpmn:incoming>Flow_0ywfawq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0op2hyo</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1df60cw" sourceRef="send-welcome-mess" targetRef="order-items" />
+    <bpmn:userTask id="order-items" name="Order Items">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="productName" label="Product Name" type="string" />
+          <camunda:formField id="quantity" label="Quantity" type="long" />
+          <camunda:formField id="memberCard" label="Member Card" type="boolean" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1df60cw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1g66bwl</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="check-promotion" name="Check Promotion" camunda:resultVariable="promotion" camunda:decisionRef="check-promotion" camunda:mapDecisionResult="singleEntry">
+      <bpmn:extensionElements />
+      <bpmn:incoming>Flow_1lgqkyx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ywfawq</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_0ywfawq" sourceRef="check-promotion" targetRef="print-promotion" />
+    <bpmn:userTask id="view-promotion" name="View Promotion">
+      <bpmn:incoming>Flow_0op2hyo</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vm2m7i</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1vm2m7i" sourceRef="view-promotion" targetRef="EndEvent_0x6ir2l" />
+    <bpmn:serviceTask id="count-total-price" name="Count Total Price" camunda:class="com.example.workflow.CountTotalPrice">
+      <bpmn:incoming>Flow_0lpcy0x</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l8p14r</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:businessRuleTask id="get-items-price" name="Get Items Price" camunda:resultVariable="productPrice" camunda:decisionRef="check-product-price" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_1g66bwl</bpmn:incoming>
+      <bpmn:outgoing>Flow_0lpcy0x</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1g66bwl" sourceRef="order-items" targetRef="get-items-price" />
+    <bpmn:sequenceFlow id="Flow_0lpcy0x" sourceRef="get-items-price" targetRef="count-total-price" />
+    <bpmn:sequenceFlow id="Flow_1l8p14r" sourceRef="count-total-price" targetRef="send-order" />
+  </bpmn:process>
+  <bpmn:message id="Message_3u5nnq5" name="Message_3u5nnq5" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="promotion-check-process">
+      <bpmndi:BPMNEdge id="Flow_1l8p14r_di" bpmnElement="Flow_1l8p14r">
+        <di:waypoint x="520" y="190" />
+        <di:waypoint x="520" y="157" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lpcy0x_di" bpmnElement="Flow_0lpcy0x">
+        <di:waypoint x="440" y="230" />
+        <di:waypoint x="470" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g66bwl_di" bpmnElement="Flow_1g66bwl">
+        <di:waypoint x="390" y="157" />
+        <di:waypoint x="390" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vm2m7i_di" bpmnElement="Flow_1vm2m7i">
+        <di:waypoint x="930" y="117" />
+        <di:waypoint x="952" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ywfawq_di" bpmnElement="Flow_0ywfawq">
+        <di:waypoint x="690" y="117" />
+        <di:waypoint x="710" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1df60cw_di" bpmnElement="Flow_1df60cw">
+        <di:waypoint x="320" y="117" />
+        <di:waypoint x="340" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0op2hyo_di" bpmnElement="Flow_0op2hyo">
+        <di:waypoint x="810" y="117" />
+        <di:waypoint x="830" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lgqkyx_di" bpmnElement="Flow_1lgqkyx">
+        <di:waypoint x="570" y="117" />
+        <di:waypoint x="590" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="188" y="117" />
+        <di:waypoint x="220" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="EndEvent_0x6ir2l">
+        <dc:Bounds x="952" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0u1yp0p_di" bpmnElement="send-welcome-mess">
+        <dc:Bounds x="220" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_079awyy_di" bpmnElement="send-order">
+        <dc:Bounds x="470" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1dkbvy7_di" bpmnElement="print-promotion">
+        <dc:Bounds x="710" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ewo5iz_di" bpmnElement="order-items">
+        <dc:Bounds x="340" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0f0apys_di" bpmnElement="check-promotion">
+        <dc:Bounds x="590" y="77" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fjwk6l_di" bpmnElement="view-promotion">
+        <dc:Bounds x="830" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fcxpsv_di" bpmnElement="count-total-price">
+        <dc:Bounds x="470" y="190" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gxt7ke_di" bpmnElement="get-items-price">
+        <dc:Bounds x="340" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

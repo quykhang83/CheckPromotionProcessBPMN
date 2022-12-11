@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_19xveqq" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <decision id="check-product-price" name="Get Items Price">
+    <decisionTable id="DecisionTable_1f8ieb3">
+      <input id="InputClause_1lakt3b" label="Product Name" biodi:width="192">
+        <inputExpression id="LiteralExpression_0srhpbx" typeRef="string">
+          <text>productName</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0anlslk">
+          <text></text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Product Price" name="productPrice" typeRef="double" biodi:width="192" />
+      <rule id="DecisionRule_0v5jr18">
+        <inputEntry id="UnaryTests_1cgp6y3">
+          <text>"Chair", "Desk"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hl99tk">
+          <text>15.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09ubtub">
+        <inputEntry id="UnaryTests_0l6ef1s">
+          <text>"Cake"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h6vjf5">
+          <text>3</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jc6h52">
+        <inputEntry id="UnaryTests_05mh3bg">
+          <text>"Comic", "Newspaper"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xvc668">
+          <text>1.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kug3u8">
+        <inputEntry id="UnaryTests_02lmtie">
+          <text>"Smart phone"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xypwyb">
+          <text>200</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ae0cq2">
+        <inputEntry id="UnaryTests_1ue3zez">
+          <text>"Shirt", "Skirt"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1aldnsy">
+          <text>12.45</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uzo752">
+        <inputEntry id="UnaryTests_1vpa5ib">
+          <text>"Bed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1r3jrdx">
+          <text>50.75</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07b4367">
+        <inputEntry id="UnaryTests_1sqvsqd">
+          <text>"Coffee", "Milk"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_020ltwn">
+          <text>2.4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_035os3q">
+        <inputEntry id="UnaryTests_0mll29y">
+          <text>"Shoes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ftjsqw">
+          <text>10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1v8v5aw">
+        <inputEntry id="UnaryTests_0d4jk96">
+          <text>"TV"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bcqd6g">
+          <text>250</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09td19y">
+        <inputEntry id="UnaryTests_0g78pnv">
+          <text>"Smart Watch"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mc1l4e">
+          <text>230</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="check-product-price">
+        <dc:Bounds height="80" width="180" x="220" y="130" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

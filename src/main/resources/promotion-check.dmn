@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_19xveqq" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">
+  <decision id="check-product-type" name="Check Product Type">
+    <decisionTable id="DecisionTable_1f8ieb3">
+      <input id="InputClause_1lakt3b" label="Product Name">
+        <inputExpression id="LiteralExpression_0srhpbx" typeRef="string">
+          <text>productName</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0anlslk">
+          <text></text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Product Type" name="productType" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_16a36qx">
+          <text>"Electronics","Books","Fashion","Foods and drinks","Funitures"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0v5jr18">
+        <inputEntry id="UnaryTests_1cgp6y3">
+          <text>"Chair", "Desk", "Bed"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hl99tk">
+          <text>"Funitures"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09ubtub">
+        <inputEntry id="UnaryTests_0l6ef1s">
+          <text>"Coffee", "Milk", "Cake"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h6vjf5">
+          <text>"Foods and drinks"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jc6h52">
+        <inputEntry id="UnaryTests_05mh3bg">
+          <text>"Comic", "Newspaper", "Education"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xvc668">
+          <text>"Books"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kug3u8">
+        <inputEntry id="UnaryTests_02lmtie">
+          <text>"Smart phone", "Smart Watch", "TV"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xypwyb">
+          <text>"Electronics"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ae0cq2">
+        <inputEntry id="UnaryTests_1ue3zez">
+          <text>"Shirt", "Skirt", "Shoes"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1aldnsy">
+          <text>"Fashion"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="check-promotion" name="Check Promotion">
+    <informationRequirement id="InformationRequirement_19lcc12">
+      <requiredDecision href="#check-product-type" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_13i4shh" hitPolicy="FIRST">
+      <input id="InputClause_0mbcuik" label="Product Type">
+        <inputExpression id="LiteralExpression_12fsj03" typeRef="string">
+          <text>productType</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0zrvq8d">
+          <text>"Electronics","Books","Fashion","Foods and drinks","Funitures"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1ifpztk" label="Total Price">
+        <inputExpression id="LiteralExpression_1cay0jl" typeRef="double">
+          <text>totalPrice</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1crya5h" label="Member Card">
+        <inputExpression id="LiteralExpression_029r2t9" typeRef="boolean">
+          <text>memberCard</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1ve4de6" label="Promotion" name="promotion" typeRef="double" />
+      <rule id="DecisionRule_1bdglm9">
+        <inputEntry id="UnaryTests_12qz9q2">
+          <text>"Books","Fashion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i5wdr4">
+          <text>[20..50]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qv26h0">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qxofj2">
+          <text>0.15</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00j56zn">
+        <inputEntry id="UnaryTests_1pikc25">
+          <text>"Books","Fashion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05z1llh">
+          <text>&gt; 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l0so7j">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dyqq2m">
+          <text>0.15</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sizpcf">
+        <inputEntry id="UnaryTests_1q5vb1c">
+          <text>"Books","Fashion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_101n19v">
+          <text>[20..50]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jr6174">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bfarzr">
+          <text>0.05</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0469e6l">
+        <inputEntry id="UnaryTests_0kl5upj">
+          <text>"Books","Fashion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r3vixg">
+          <text>&gt; 50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mw4hat">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0x19bbj">
+          <text>0.05</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19395iy">
+        <inputEntry id="UnaryTests_0h999bs">
+          <text>"Books","Fashion"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rtrh9t">
+          <text>&lt; 20</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mq57eh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10az4lv">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_195al8y">
+        <inputEntry id="UnaryTests_1go8ppw">
+          <text>"Electronics","Funitures"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ntkzkp">
+          <text>&gt;= 300</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_131ev0r">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0o9xdni">
+          <text>0.1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_017f1id">
+        <inputEntry id="UnaryTests_01443y9">
+          <text>"Electronics","Funitures"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t2tejq">
+          <text>&gt;= 300</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13uxgv7">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d4gckq">
+          <text>0.1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06rjip2">
+        <inputEntry id="UnaryTests_17yrjlz">
+          <text>"Electronics","Funitures"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n3nznk">
+          <text>&lt; 300</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0igp7h2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08tt45q">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="check-product-type">
+        <dc:Bounds height="80" width="180" x="140" y="240" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1f1hetg" dmnElementRef="check-promotion">
+        <dc:Bounds height="80" width="180" x="210" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_16aqvtp" dmnElementRef="InformationRequirement_19lcc12">
+        <di:waypoint x="230" y="240" />
+        <di:waypoint x="300" y="210" />
+        <di:waypoint x="300" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

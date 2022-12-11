@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="promotion-check-process" />
+        <module name="flight-baggage-check-process" />
+        <module name="leave-workflow-engine" />
+        <module name="check-flight-baggage-process" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
